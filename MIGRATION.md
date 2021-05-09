@@ -72,3 +72,4 @@ $ pipenv run alembic upgrade head
 
 ## Reference
 - [sqlalchemy](https://www.michaelcho.me/article/sqlalchemy-commit-flush-expire-refresh-merge-whats-the-difference)
+- [sqlalchemy tutorial](https://www.tutorialspoint.com/sqlalchemy/index.htm)
