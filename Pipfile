@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-dotenv = "*"
+psycopg2-binary = "*"
+
+[dev-packages]
+pytest = "*"
+alembic = "*"
+python-dotenv = "*"
+
+[requires]
+python_version = "3.8"
