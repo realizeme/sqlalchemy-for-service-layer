@@ -15,8 +15,12 @@ class Image(Base):
     __tablename__ = "image"
     id = Column(BigInteger, primary_key=True, index=True)
     path = Column(String)
-    dataset_id = Column(Integer, ForeignKey('dataset.id'))
+    dataset_id = Column(Integer, ForeignKey('dataset.id', ondelete='CASCADE'))
     dataset = relationship("Dataset", back_populates="images")
+
+    def __init__(self, dataset, path):
+        self.dataset = dataset
+        self.path = path
 
     def __repr__(self):
         return f"<Image('id:{self.id}', 'path:{self.path}'>"
