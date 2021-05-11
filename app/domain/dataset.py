@@ -17,7 +17,7 @@ class Dataset(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String)
     description = Column(String)
-    images = relationship("Image", back_populates="dataset", lazy='dynamic')
+    images = relationship("Image", back_populates="dataset", lazy='dynamic', cascade='all,delete,delete-orphan')
 
     def __init__(self, name: str, description: str):
         self.name = name
