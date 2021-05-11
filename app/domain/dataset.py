@@ -17,8 +17,11 @@ class Dataset(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String)
     description = Column(String)
-    images = relationship("Image", back_populates="dataset", lazy=True)
-    # images = relationship("Image", lazy=True, backref=backref("dataset", cascade="all,delete"))
+    images = relationship("Image", back_populates="dataset", lazy='dynamic')
+
+    def __init__(self, name: str, description: str):
+        self.name = name
+        self.description = description
 
     def __repr__(self):
         return f"<Dataset('id:{self.id}', 'name:{self.name}', 'desc:{self.description}'>"

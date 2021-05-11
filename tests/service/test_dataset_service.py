@@ -13,11 +13,8 @@ from app.domain.image import Image
 # def clean_database():
 #     session_maker = SessionMaker()
 #     meta = MetaData()
-#     with contextlib.closing(session_maker.get_session()) as con:
-#         trans = con.begin()
-#         for table in reversed(meta.sorted_tables):
-#             con.execute(table.delete())
-#         trans.commit()
+#     engine = session_maker.engine()
+    # engine.drop()
 
 
 @pytest.mark.asyncio
@@ -60,3 +57,17 @@ async def test_pass_update_dataset():
 
     # then
     assert result is not None
+
+
+@pytest.mark.asyncio
+async def test_pass_get_dataset_detail():
+    # given
+    dataset_id = 1
+
+    # when
+    dataset_service = DatasetService(SessionMaker())
+    result = await dataset_service.get_one(dataset_id)
+
+    # then
+    assert result is not None
+    assert result.images.count() > 0

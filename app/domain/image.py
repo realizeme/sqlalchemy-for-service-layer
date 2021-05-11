@@ -4,7 +4,7 @@ from typing import Optional
 
 from sqlalchemy import BigInteger, Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import composite, relationship
+from sqlalchemy.orm import composite, relationship, backref
 
 from app.domain.common import Base
 
@@ -15,7 +15,7 @@ class Image(Base):
     __tablename__ = "image"
     id = Column(BigInteger, primary_key=True, index=True)
     path = Column(String)
-    dataset_id = Column(Integer, ForeignKey('dataset.id', ondelete='CASCADE'))
+    dataset_id = Column(ForeignKey('dataset.id', ondelete='CASCADE'))
     dataset = relationship("Dataset", back_populates="images")
 
     def __init__(self, dataset, path):

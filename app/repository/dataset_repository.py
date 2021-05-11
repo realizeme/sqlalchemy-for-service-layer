@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -28,8 +28,10 @@ class DatasetRepository:
     async def get_one(self, session: Session, dataset_id: int):
         try:
             return session.query(Dataset).filter(Dataset.id == dataset_id).one()
+        except NoResultFound as e:
+            raise
         except Exception as e:
-            return None
+            raise
 
     async def update(self, session: Session, dataset: Dataset):
         try:
@@ -41,3 +43,10 @@ class DatasetRepository:
         except Exception as e:
             raise
 
+    async def delete(self, session: Session, dataset_id: int):
+        try:
+            return session.query(Dataset).filter(Dataset.id == dataset_id).delete()
+        except NoResultFound as e:
+            raise # Notf(F"Dataset with id:{dataset_id} not found")
+        except Exception as e:
+            raise

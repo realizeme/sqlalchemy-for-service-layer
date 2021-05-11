@@ -29,3 +29,15 @@ class DatasetService:
         image.dataset = dataset
         dataset.images.append(image)
         return await self.repository.update(session, dataset)
+
+    async def get_one(self, dataset_id: int):
+        session = self.session_maker.get_session()
+        return await self.repository.get_one(session, dataset_id)
+
+    async def delete_one(self, dataset_id: int):
+        session = self.session_maker.get_session()
+        return await self.repository.delete(session, dataset_id)
+
+    async def get_image_one(self, dataset_id: int, image_id: int):
+        session = self.session_maker.get_session()
+        return await self.repository.get_detail(session, dataset_id, image_id)
